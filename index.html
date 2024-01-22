@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>OliXPhotos</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>OliXPhotos</h1>
+
+    <div class="gallery">
+        <!-- Photos will be dynamically added here -->
+    </div>
+
+    <script>
+        // We'll use JavaScript to dynamically add photos to our gallery
+        const photoGallery = document.querySelector('.gallery');
+
+        // Specify the number of photos you have
+        const numberOfPhotos = 50; // Replace with the actual number of photos
+
+        // Loop through the array and create image elements
+        for (let i = 1; i <= numberOfPhotos; i++) {
+            const img = document.createElement('img');
+            // Use an array to specify possible file formats (extensions)
+            const possibleFormats = ['jpg', 'png'];
+            
+            // Loop through the formats and try to find an existing image
+            let found = false;
+            for (const format of possibleFormats) {
+                const path = `${i}.${format}`;
+                // Check if the image exists at the given path
+                const imgTest = new Image();
+                imgTest.src = path;
+                imgTest.onerror = () => {
+                    // If an error occurs (image not found), try the next format
+                    if (!found && format === possibleFormats[possibleFormats.length - 1]) {
+                        console.error(`Image not found: ${path}`);
+                    }
+                };
+                imgTest.onload = () => {
+                    // If the image is found, set the source and break out of the loop
+                    if (!found) {
+                        img.src = path;
+                        img.alt = `Photo ${i}`; // You can customize the alt text
+                        photoGallery.appendChild(img);
+                        found = true;
+                    }
+                };
+            }
+        }
+    </script>
+</body>
+</html>
