@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>OliXPhotos</title>
     <style>
         body {
@@ -64,7 +63,7 @@
         const photoGallery = document.querySelector('.gallery');
 
         // Specify the number of photos you have
-        const numberOfPhotos = 72; // Replace with the actual number of photos
+        const numberOfPhotos = 86; // Replace with the actual number of photos
 
         // Loop through the array and create image elements
         for (let i = 1; i <= numberOfPhotos; i++) {
@@ -90,6 +89,9 @@
                     if (!found) {
                         img.src = path;
                         img.alt = `Photo ${i}`; // You can customize the alt text
+                        img.addEventListener('contextmenu', (event) => {
+                            event.preventDefault(); // Prevent the default right-click context menu
+                        });
                         photoGallery.appendChild(img);
                         found = true;
                     }
